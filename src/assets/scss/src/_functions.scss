@@ -1,0 +1,11 @@
+// Functions
+
+@function rem-calc($num, $base: $base-font-size) {
+    @return ($num / $base) * 1rem;
+}
+
+@function row-height($num, $base: $base-font-size) {
+    $line-height: rem-calc(24, $base);
+
+    @return ($num * $line-height);
+}
