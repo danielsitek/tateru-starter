@@ -35,7 +35,7 @@
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.13.1",
-    "tateru-cli": "^1.1.0",
+    "tateru-cli": "^1.2.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.1"
