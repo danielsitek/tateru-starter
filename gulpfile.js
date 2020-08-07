@@ -10,6 +10,7 @@ const autoprefixer = require('autoprefixer');
 const postcss = require('gulp-postcss');
 const rename = require('gulp-rename');
 const sass = require('gulp-sass');
+const cleanCSS = require('gulp-clean-css');
 
 sass.compiler = require('node-sass');
 
@@ -20,7 +21,7 @@ function css(cb) {
         .pipe(sass.sync())
         .pipe(postcss([autoprefixer()]))
         .pipe(dest(`${DIST_FOLDER}assets/css/`))
-        // TODO: add css minification.
+        .pipe(cleanCSS())
         .pipe(rename({ extname: '.min.css' }))
         .pipe(dest(`${DIST_FOLDER}assets/css/`))
 }
