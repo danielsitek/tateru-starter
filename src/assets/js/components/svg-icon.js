@@ -16,7 +16,7 @@ export default Vue.extend({
         }
     },
 
-    render (h) {
+    render(h) {
         // @ts-ignore
         return h('div', {
             staticClass: ['svg-icon'],

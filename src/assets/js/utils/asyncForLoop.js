@@ -4,7 +4,7 @@
  * @param {function} cb Callback function.
  */
 
-const asyncForLoop = async (collection, cb) => {
+export const asyncForLoop = async (collection, cb) => {
     const _this = this;
     for (let item of collection) {
         await new Promise((resolve, reject) => {
@@ -19,5 +19,3 @@ const asyncForLoop = async (collection, cb) => {
         });
     }
 };
-
-export default asyncForLoop;

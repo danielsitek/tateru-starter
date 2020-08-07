@@ -18,7 +18,7 @@ const DIST_FOLDER = 'dist/';
 function css(cb) {
     return src(`src/assets/scss/**/*.scss`)
         .pipe(sass.sync())
-        .pipe(postcss([ autoprefixer() ]))
+        .pipe(postcss([autoprefixer()]))
         .pipe(dest(`${DIST_FOLDER}assets/css/`))
         // TODO: add css minification.
         .pipe(rename({ extname: '.min.css' }))
@@ -40,13 +40,13 @@ function twig(cb) {
         if (error) {
             console.error(`exec error: ${error}`);
             return;
-          }
-          if (stdout) {
+        }
+        if (stdout) {
             console.log(`${stdout}`);
-          }
-          if (stderr) {
+        }
+        if (stderr) {
             console.log(`${stderr}`);
-          }
+        }
     })
 }
 
@@ -60,7 +60,7 @@ exports.default = parallel(css, images, twig, appIcon);
 /**
  * @link https://gulpjs.com/docs/en/getting-started/watching-files
  */
-exports.watch = function() {
+exports.watch = function () {
     watch(`src/assets/scss/**/*.scss`, css);
     watch(`src/assets/images/**/*`, images);
     watch(`src/assets/favicon/**/*`, appIcon);

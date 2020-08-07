@@ -4,6 +4,4 @@
  * @param time [number]
  */
 
-const sleep = (time) => new Promise(resolve => setTimeout(resolve, time));
-
-export default sleep;
+export const sleep = (time) => new Promise(resolve => setTimeout(resolve, time));
