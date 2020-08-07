@@ -10,6 +10,7 @@ const autoprefixer = require('autoprefixer');
 const postcss = require('gulp-postcss');
 const rename = require('gulp-rename');
 const sass = require('gulp-sass');
+const cleanCSS = require('gulp-clean-css');
 
 sass.compiler = require('node-sass');
 
@@ -18,9 +19,9 @@ const DIST_FOLDER = 'dist/';
 function css(cb) {
     return src(`src/assets/scss/**/*.scss`)
         .pipe(sass.sync())
-        .pipe(postcss([ autoprefixer() ]))
+        .pipe(postcss([autoprefixer()]))
         .pipe(dest(`${DIST_FOLDER}assets/css/`))
-        // TODO: add css minification.
+        .pipe(cleanCSS())
         .pipe(rename({ extname: '.min.css' }))
         .pipe(dest(`${DIST_FOLDER}assets/css/`))
 }
@@ -40,13 +41,13 @@ function twig(cb) {
         if (error) {
             console.error(`exec error: ${error}`);
             return;
-          }
-          if (stdout) {
+        }
+        if (stdout) {
             console.log(`${stdout}`);
-          }
-          if (stderr) {
+        }
+        if (stderr) {
             console.log(`${stderr}`);
-          }
+        }
     })
 }
 
@@ -60,7 +61,7 @@ exports.default = parallel(css, images, twig, appIcon);
 /**
  * @link https://gulpjs.com/docs/en/getting-started/watching-files
  */
-exports.watch = function() {
+exports.watch = function () {
     watch(`src/assets/scss/**/*.scss`, css);
     watch(`src/assets/images/**/*`, images);
     watch(`src/assets/favicon/**/*`, appIcon);

@@ -1,7 +1,7 @@
 // @ts-check
-import HttpClient from './httpClient'
+import { HttpClient } from './httpClient'
 
-export default class ApiServices {
+export class ApiServices {
 
     static async getDownloadsCount() {
         const response = await HttpClient().get('/sample-endpoint');

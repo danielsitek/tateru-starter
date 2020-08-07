@@ -1,3 +1,5 @@
-const Config = {};
+/**
+ * Config object
+ */
 
-export default Config;
+export const Config = {};
