@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/danielsitek/tateru-starter#readme",
   "devDependencies": {
-    "@babel/core": "^7.10.2",
-    "@babel/preset-env": "^7.10.2",
-    "autoprefixer": "^9.8.0",
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "autoprefixer": "^9.8.6",
     "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.2.2",
@@ -37,8 +37,8 @@
     "html-webpack-plugin": "^4.3.0",
     "node-sass": "^4.14.1",
     "tateru-cli": "^1.2.0",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
