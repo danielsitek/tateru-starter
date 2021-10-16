@@ -1,7 +1,8 @@
 // Functions
+@use "sass:math";
 
 @function rem-calc($num, $base: $base-font-size) {
-    @return ($num / $base) * 1rem;
+    @return math.div($num, $base) * 1rem;
 }
 
 @function row-height($num, $base: $base-font-size) {
