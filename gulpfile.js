@@ -5,12 +5,16 @@
  */
 
 const { parallel, series } = require('gulp');
-const appIcon = require('./tasks/appIcon');
+const clean = require('./tasks/clean');
+const { ENV_DEVELOPMENT, ENV_PRODUCTION } = require('./tasks/config');
 const css = require('./tasks/css');
 const images = require('./tasks/images');
+const publicAssets = require('./tasks/public-assets');
 const twig = require('./tasks/twig');
-const webpack = require('./tasks/webpack');
 const watch = require('./tasks/watch');
+const webpack = require('./tasks/webpack');
+
+process.env.NODE_ENV = ENV_DEVELOPMENT;
 
 const js = function js(cb) {
   return series(
@@ -18,20 +22,27 @@ const js = function js(cb) {
   )(cb);
 }
 
+const templates = function templates(cb) {
+  return series(
+    publicAssets,
+    twig,
+  )(cb);
+}
+
 const build = function build(cb) {
   return series(
+    clean,
     parallel(
       css,
       images,
-      twig,
-      appIcon,
       js,
+      templates,
     ),
   )(cb);
 }
 
 const dev = function dev(cb) {
-  process.env.NODE_ENV = 'development';
+  process.env.NODE_ENV = ENV_DEVELOPMENT;
 
   return series(
     build,
@@ -39,13 +50,23 @@ const dev = function dev(cb) {
   )(cb);
 };
 
+const prod = function prod(cb) {
+  process.env.NODE_ENV = ENV_PRODUCTION;
+
+  return series(
+    build,
+  )(cb);
+};
+
 module.exports = {
-  appIcon,
   build,
+  clean,
   css,
   default: dev,
   images,
-  twig,
   js,
+  prod,
+  publicAssets,
+  templates,
   watch,
 }

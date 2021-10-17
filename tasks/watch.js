@@ -1,7 +1,7 @@
 const { watch: watchGulp } = require('gulp');
-const appIcon = require('./appIcon');
 const css = require('./css');
 const images = require('./images');
+const publicAssets = require('./public-assets');
 const twig = require('./twig');
 const webpack = require('./webpack');
 
@@ -19,8 +19,8 @@ module.exports = function watch () {
   ], images);
 
   watchGulp([
-    `src/assets/favicon/**/*`,
-  ], appIcon);
+    `public/**/*`,
+  ], publicAssets);
 
   watchGulp([
     `src/twig/**/*`,

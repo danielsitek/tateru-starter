@@ -7,9 +7,15 @@ const sass = require('gulp-sass')(require('sass'));
 const { DIST_FOLDER } = require('./config');
 
 module.exports = function css(cb) {
-  return src([`src/assets/scss/**/*.scss`])
+  return src([
+    `src/assets/scss/*.scss`,
+  ], {
+    cwd: '.',
+  })
     .pipe(sass.sync())
-    .pipe(postcss([autoprefixer()]))
+    .pipe(postcss([
+      autoprefixer(),
+    ]))
     .pipe(dest(`${DIST_FOLDER}assets/css/`))
     .pipe(cleanCSS())
     .pipe(rename({ extname: '.min.css' }))

@@ -1,6 +1,7 @@
 const path = require('path');
 const bundler = require('webpack');
-const { log } = require('console');
+const log = require('fancy-log');
+const { ENV_DEVELOPMENT } = require('./config');
 
 module.exports = function webpack (cb) {
   log(`[webpack] env: ${process.env.NODE_ENV}`);
@@ -8,14 +9,14 @@ module.exports = function webpack (cb) {
   let isReady = false;
 
   const settings = {
-    mode: process.env.NODE_ENV || 'development',
+    mode: process.env.NODE_ENV || ENV_DEVELOPMENT,
 
     entry: {
       homepage: path.resolve(__dirname, '../src/assets/js/homepage.js')
     },
 
     output: {
-      path: path.resolve(__dirname, '../dist', 'assets', 'js'),
+      path: path.resolve(__dirname, '../dist/assets/js'),
       filename: '[name].bundle.js',
       chunkFilename: '[name].chunk.js?v=[contenthash:10]',
       publicPath: '/assets/js/',
@@ -45,12 +46,34 @@ module.exports = function webpack (cb) {
         }
       ]
     },
-
-    devtool: 'cheap-module-eval-source-map',
   };
 
-  const onError = (error) => {
-    log(`Error: [JS error!] ${error}`);
+  if (process.env.NODE_ENV === ENV_DEVELOPMENT) {
+    settings.devtool = 'cheap-module-eval-source-map';
+  }
+
+  const logInfo = (msg, prefix = '[webpack]') => {
+    msg.split('\n').forEach((line) => {
+      let write = line;
+
+      if (prefix) {
+        write = `${prefix} ${write}`;
+      }
+
+      log(write);
+    })
+  };
+
+  const onError = (msg) => {
+    logInfo(msg, '[webpack] Error:');
+  };
+
+  const onWarning = (msg) => {
+    logInfo(msg, '[webpack] Warning:');
+  };
+
+  const onStats = (msg) => {
+    logInfo(msg, '[webpack] Stats:');
   };
 
   const bundle = bundler(settings, function (error, stats) {
@@ -62,10 +85,9 @@ module.exports = function webpack (cb) {
     } else if (errors.length > 0) {
       onError(errors.toString());
     } else if (warnings.length > 0) {
-      onError(warnings.toString());
+      onWarning(warnings.toString());
     } else {
-      // console.log('webpack problem: ' + error); TODO
-      log(`[webpack] \n${stats.toString({
+      onStats(stats.toString({
         colors: true,
         hash: false,
         timings: true,
@@ -75,7 +97,7 @@ module.exports = function webpack (cb) {
         modules: false,
         children: true,
         version: false,
-      })}`);
+      }));
     }
 
     if (!isReady) {
