@@ -7,11 +7,11 @@ const sass = require('gulp-sass')(require('sass'));
 const { DIST_FOLDER } = require('./config');
 
 module.exports = function css(cb) {
-    return src([`src/assets/scss/**/*.scss`])
-        .pipe(sass.sync())
-        .pipe(postcss([autoprefixer()]))
-        .pipe(dest(`${DIST_FOLDER}assets/css/`))
-        .pipe(cleanCSS())
-        .pipe(rename({ extname: '.min.css' }))
-        .pipe(dest(`${DIST_FOLDER}assets/css/`))
+  return src([`src/assets/scss/**/*.scss`])
+    .pipe(sass.sync())
+    .pipe(postcss([autoprefixer()]))
+    .pipe(dest(`${DIST_FOLDER}assets/css/`))
+    .pipe(cleanCSS())
+    .pipe(rename({ extname: '.min.css' }))
+    .pipe(dest(`${DIST_FOLDER}assets/css/`))
 }

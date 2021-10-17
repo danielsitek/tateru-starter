@@ -1,3 +1,3 @@
 module.exports = {
-    DIST_FOLDER: 'dist/'
+  DIST_FOLDER: 'dist/'
 };

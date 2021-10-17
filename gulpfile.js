@@ -13,39 +13,39 @@ const webpack = require('./tasks/webpack');
 const watch = require('./tasks/watch');
 
 const js = function js(cb) {
-    return series(
-        webpack,
-    )(cb);
+  return series(
+    webpack,
+  )(cb);
 }
 
 const build = function build(cb) {
-    return series(
-        parallel(
-            css,
-            images,
-            twig,
-            appIcon,
-            js,
-        ),
-    )(cb);
+  return series(
+    parallel(
+      css,
+      images,
+      twig,
+      appIcon,
+      js,
+    ),
+  )(cb);
 }
 
 const dev = function dev(cb) {
-    process.env.NODE_ENV = 'development';
+  process.env.NODE_ENV = 'development';
 
-    return series(
-        build,
-        watch,
-    )(cb);
+  return series(
+    build,
+    watch,
+  )(cb);
 };
 
 module.exports = {
-    appIcon,
-    build,
-    css,
-    default: dev,
-    images,
-    twig,
-    js,
-    watch,
+  appIcon,
+  build,
+  css,
+  default: dev,
+  images,
+  twig,
+  js,
+  watch,
 }

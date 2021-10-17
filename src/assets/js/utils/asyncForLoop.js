@@ -5,17 +5,17 @@
  */
 
 export const asyncForLoop = async (collection, cb) => {
-    const _this = this;
-    for (let item of collection) {
-        await new Promise((resolve, reject) => {
-            setTimeout(() => {
-                try {
-                    cb.call(_this, item);
-                    resolve();
-                } catch (e) {
-                    reject(e);
-                }
-            }, 0);
-        });
-    }
+  const _this = this;
+  for (let item of collection) {
+    await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        try {
+          cb.call(_this, item);
+          resolve();
+        } catch (e) {
+          reject(e);
+        }
+      }, 0);
+    });
+  }
 };
