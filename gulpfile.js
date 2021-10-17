@@ -10,7 +10,7 @@ const { ENV_DEVELOPMENT, ENV_PRODUCTION } = require('./tasks/config');
 const css = require('./tasks/css');
 const images = require('./tasks/images');
 const publicAssets = require('./tasks/public-assets');
-const twig = require('./tasks/twig');
+const tateru = require('./tasks/tateru');
 const watch = require('./tasks/watch');
 const webpack = require('./tasks/webpack');
 
@@ -25,7 +25,7 @@ const js = function js(cb) {
 const templates = function templates(cb) {
   return series(
     publicAssets,
-    twig,
+    tateru,
   )(cb);
 }
 

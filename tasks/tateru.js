@@ -2,10 +2,10 @@ const { exec } = require('child_process');
 const Logger = require('./helpers/logger');
 
 const log = new Logger({
-  namespace: 'twig',
+  namespace: 'tateru',
 });
 
-module.exports = function twig(cb) {
+module.exports = function tateru(cb) {
   return new Promise((resolve) => {
     exec('npm run tateru', function (error, stdout, stderr) {
       

@@ -2,7 +2,7 @@ const { watch: watchGulp } = require('gulp');
 const css = require('./css');
 const images = require('./images');
 const publicAssets = require('./public-assets');
-const twig = require('./twig');
+const tateru = require('./tateru');
 const webpack = require('./webpack');
 
 /**
@@ -26,7 +26,7 @@ module.exports = function watch () {
     `src/twig/**/*`,
     `src/translations/**/*`,
     `config.json`,
-  ], twig);
+  ], tateru);
 
   watchGulp([
     `src/assets/js/**/*`,
