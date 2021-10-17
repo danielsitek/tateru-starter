@@ -47,5 +47,8 @@
     "axios": "^0.23.0",
     "vue": "^2.6.11"
   },
-  "private": true
+  "private": true,
+  "engines": {
+    "node": ">=14"
+  }
 }
