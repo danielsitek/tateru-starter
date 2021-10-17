@@ -10,3 +10,5 @@ new Vue({
         svgIcon
     }
 });
+
+console.log('Hello there!');

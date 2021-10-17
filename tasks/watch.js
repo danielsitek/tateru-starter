@@ -1,17 +1,34 @@
-const { src, dest, parallel, watch } = require('gulp');
+const { watch: watchGulp } = require('gulp');
 const appIcon = require('./appIcon');
 const css = require('./css');
 const images = require('./images');
 const twig = require('./twig');
+const webpack = require('./webpack');
 
 /**
  * @link https://gulpjs.com/docs/en/getting-started/watching-files
  */
- module.exports = function watchTask () {
-    watch(`src/assets/scss/**/*.scss`, css);
-    watch(`src/assets/images/**/*`, images);
-    watch(`src/assets/favicon/**/*`, appIcon);
-    watch(`src/twig/**/*`, twig);
-    watch(`src/translations/**/*`, twig);
-    watch(`config.json`, twig);
+ module.exports = function watch () {
+
+    watchGulp([
+        `src/assets/scss/**/*.scss`,
+    ], css);
+
+    watchGulp([
+        `src/assets/images/**/*`,
+    ], images);
+
+    watchGulp([
+        `src/assets/favicon/**/*`,
+    ], appIcon);
+
+    watchGulp([
+        `src/twig/**/*`,
+        `src/translations/**/*`,
+        `config.json`,
+    ], twig);
+
+    watchGulp([
+        `src/assets/js/**/*`,
+    ], webpack);
 };
