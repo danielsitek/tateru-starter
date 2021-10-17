@@ -1,8 +1,9 @@
 // Core Styles
+@use "sass:math";
 
 html {
     font-size: ($base-font-size * 1px);
-    line-height: (28 / $base-font-size);
+    line-height: math.div(28, $base-font-size);
     font-family: "Georgia", serif;
     font-weight: 400;
     padding: 0;

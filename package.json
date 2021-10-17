@@ -3,13 +3,12 @@
   "version": "1.0.0",
   "description": "Tateru CLI Website Starter",
   "scripts": {
-    "lint": "npx eslint . --ext .js,.vue --fix",
-    "tateru": "npx tateru-cli config.json",
-    "build": "npx cross-env NODE_ENV=development npx gulp && npx webpack --config=webpack.config.js",
-    "build:prod": "npx cross-env NODE_ENV=production npx gulp && npx webpack --config=webpack.config.js",
-    "watch": "npx cross-env NODE_ENV=development && npx concurrently -n gulp,webpack \"npx gulp watch\" \"npx webpack-dev-server --hot --color --config=webpack.config.js\"",
-    "webpack": "npx webpack --config=webpack.config.js",
-    "clean:dist": "rm -rf dist"
+    "lint": "eslint . --ext .js,.vue --fix",
+    "tateru": "tateru-cli config.json",
+    "build": "gulp build",
+    "build:prod": "gulp prod",
+    "watch": "gulp",
+    "clean:dist": "gulp clean"
   },
   "repository": {
     "type": "git",
@@ -26,24 +25,30 @@
     "@babel/preset-env": "^7.11.0",
     "autoprefixer": "^9.8.6",
     "babel-loader": "^8.1.0",
+    "browser-sync": "^2.27.5",
+    "del": "^6.0.0",
     "eslint": "^6.8.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
+    "fancy-log": "^1.3.3",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
     "gulp-postcss": "^8.0.0",
     "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.1.0",
+    "gulp-sass": "^5.0.0",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
-    "node-sass": "^4.14.1",
-    "tateru-cli": "^1.2.0",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "prettier": "2.4.1",
+    "sass": "^1.43.2",
+    "tateru-cli": "^1.3.1",
+    "webpack": "^4.44.1"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.23.0",
     "vue": "^2.6.11"
   },
-  "private": true
+  "private": true,
+  "engines": {
+    "node": ">=14"
+  }
 }

@@ -75,7 +75,8 @@
           "page": "index"
         },
         "src": "views/homepage.html.twig",
-        "ext": "index.html"
+        "ext": "index.html",
+        "minify": ["prod"]
       },
       "humans_txt": {
         "data": {

@@ -4,68 +4,71 @@
  * @link https://github.com/gulpjs/gulp/tree/master/docs/recipes
  */
 
-const { src, dest, parallel, watch } = require('gulp');
-const { exec } = require('child_process');
-const autoprefixer = require('autoprefixer');
-const postcss = require('gulp-postcss');
-const rename = require('gulp-rename');
-const sass = require('gulp-sass');
-const cleanCSS = require('gulp-clean-css');
+const { ENV_DEVELOPMENT, ENV_PRODUCTION } = require('./tasks/config');
+const { parallel, series } = require('gulp');
+const clean = require('./tasks/clean');
+const css = require('./tasks/css');
+const images = require('./tasks/images');
+const minifyCss = require('./tasks/minify-css');
+const publicAssets = require('./tasks/public-assets');
+const tateru = require('./tasks/tateru');
+const watch = require('./tasks/watch');
+const webpack = require('./tasks/webpack');
 
-sass.compiler = require('node-sass');
+process.env.NODE_ENV = ENV_DEVELOPMENT;
 
-const DIST_FOLDER = 'dist/';
-
-function css(cb) {
-    return src(`src/assets/scss/**/*.scss`)
-        .pipe(sass.sync())
-        .pipe(postcss([autoprefixer()]))
-        .pipe(dest(`${DIST_FOLDER}assets/css/`))
-        .pipe(cleanCSS())
-        .pipe(rename({ extname: '.min.css' }))
-        .pipe(dest(`${DIST_FOLDER}assets/css/`))
+const js = function js(cb) {
+  return series(
+    webpack,
+  )(cb);
 }
 
-function images(cb) {
-    return src(`src/assets/images/**/*`)
-        .pipe(dest(`${DIST_FOLDER}assets/images/`))
+const templates = function templates(cb) {
+  return series(
+    publicAssets,
+    tateru,
+  )(cb);
 }
 
-function appIcon(cb) {
-    return src(`src/assets/favicon/**/*`)
-        .pipe(dest(`${DIST_FOLDER}assets/favicon/`))
+const build = function build(cb) {
+  return series(
+    clean,
+    parallel(
+      css,
+      images,
+      js,
+      templates,
+    ),
+  )(cb);
 }
 
-function twig(cb) {
-    return exec('npm run tateru', function (error, stdout, stderr) {
-        if (error) {
-            console.error(`exec error: ${error}`);
-            return;
-        }
-        if (stdout) {
-            console.log(`${stdout}`);
-        }
-        if (stderr) {
-            console.log(`${stderr}`);
-        }
-    })
-}
+const dev = function dev(cb) {
+  process.env.NODE_ENV = ENV_DEVELOPMENT;
 
-exports.css = css
-exports.images = images
-exports.appIcon = appIcon
-exports.twig = twig
-
-exports.default = parallel(css, images, twig, appIcon);
-
-/**
- * @link https://gulpjs.com/docs/en/getting-started/watching-files
- */
-exports.watch = function () {
-    watch(`src/assets/scss/**/*.scss`, css);
-    watch(`src/assets/images/**/*`, images);
-    watch(`src/assets/favicon/**/*`, appIcon);
-    watch(`src/twig/**/*`, twig);
-    watch(`src/translations/**/*`, twig);
-    watch(`config.json`, twig);
+  return series(
+    build,
+    watch,
+  )(cb);
 };
+
+const prod = function prod(cb) {
+  process.env.NODE_ENV = ENV_PRODUCTION;
+
+  return series(
+    build,
+    minifyCss,
+  )(cb);
+};
+
+module.exports = {
+  build,
+  clean,
+  css,
+  default: dev,
+  images,
+  js,
+  prod,
+  publicAssets,
+  templates,
+  watch,
+}
