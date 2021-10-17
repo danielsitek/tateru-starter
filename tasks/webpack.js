@@ -1,10 +1,14 @@
 const path = require('path');
 const bundler = require('webpack');
-const log = require('fancy-log');
+const Logger = require('./helpers/logger');
 const { ENV_DEVELOPMENT } = require('./config');
 
+const log = new Logger({
+  namespace: 'webpack',
+});
+
 module.exports = function webpack (cb) {
-  log(`[webpack] env: ${process.env.NODE_ENV}`);
+  log.info(`env: ${process.env.NODE_ENV}`);
 
   let isReady = false;
 
@@ -52,42 +56,20 @@ module.exports = function webpack (cb) {
     settings.devtool = 'cheap-module-eval-source-map';
   }
 
-  const logInfo = (msg, prefix = '[webpack]') => {
-    msg.split('\n').forEach((line) => {
-      let write = line;
-
-      if (prefix) {
-        write = `${prefix} ${write}`;
-      }
-
-      log(write);
-    })
-  };
-
-  const onError = (msg) => {
-    logInfo(msg, '[webpack] Error:');
-  };
-
-  const onWarning = (msg) => {
-    logInfo(msg, '[webpack] Warning:');
-  };
-
-  const onStats = (msg) => {
-    logInfo(msg, '[webpack] Stats:');
-  };
-
   const bundle = bundler(settings, function (error, stats) {
     const jsonStats = stats.toJson();
     const { errors, warnings } = jsonStats;
 
     if (error) {
-      onError(error);
+      log.error(error);
     } else if (errors.length > 0) {
-      onError(errors.toString());
+      log.error(errors.toString());
     } else if (warnings.length > 0) {
-      onWarning(warnings.toString());
+      log.warning(warnings.toString());
     } else {
-      onStats(stats.toString({
+      log.custom({
+        type: 'Stats',
+      }, stats.toString({
         colors: true,
         hash: false,
         timings: true,
