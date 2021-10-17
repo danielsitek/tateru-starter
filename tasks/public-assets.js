@@ -1,5 +1,5 @@
-const { src, dest } = require('gulp');
 const { DIST_FOLDER } = require('./config');
+const { src, dest } = require('gulp');
 
 module.exports = function publicAssets(cb) {
   return src([

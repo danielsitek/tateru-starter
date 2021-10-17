@@ -1,10 +1,9 @@
+const { DIST_FOLDER } = require('./config');
 const { src, dest } = require('gulp');
 const autoprefixer = require('autoprefixer');
+const browserSync = require('./browser-sync');
 const postcss = require('gulp-postcss');
-const rename = require('gulp-rename');
-const cleanCSS = require('gulp-clean-css');
 const sass = require('gulp-sass')(require('sass'));
-const { DIST_FOLDER } = require('./config');
 
 module.exports = function css(cb) {
   return src([
@@ -17,7 +16,5 @@ module.exports = function css(cb) {
       autoprefixer(),
     ]))
     .pipe(dest(`${DIST_FOLDER}assets/css/`))
-    .pipe(cleanCSS())
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(dest(`${DIST_FOLDER}assets/css/`))
+    .pipe(browserSync.stream());
 }

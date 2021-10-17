@@ -4,11 +4,12 @@
  * @link https://github.com/gulpjs/gulp/tree/master/docs/recipes
  */
 
+const { ENV_DEVELOPMENT, ENV_PRODUCTION } = require('./tasks/config');
 const { parallel, series } = require('gulp');
 const clean = require('./tasks/clean');
-const { ENV_DEVELOPMENT, ENV_PRODUCTION } = require('./tasks/config');
 const css = require('./tasks/css');
 const images = require('./tasks/images');
+const minifyCss = require('./tasks/minify-css');
 const publicAssets = require('./tasks/public-assets');
 const tateru = require('./tasks/tateru');
 const watch = require('./tasks/watch');
@@ -55,6 +56,7 @@ const prod = function prod(cb) {
 
   return series(
     build,
+    minifyCss,
   )(cb);
 };
 

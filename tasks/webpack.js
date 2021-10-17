@@ -1,7 +1,7 @@
-const path = require('path');
+const { ENV_DEVELOPMENT } = require('./config');
 const bundler = require('webpack');
 const Logger = require('./helpers/logger');
-const { ENV_DEVELOPMENT } = require('./config');
+const path = require('path');
 
 const log = new Logger({
   namespace: 'webpack',
