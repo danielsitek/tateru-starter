@@ -1,4 +1,4 @@
-const { ENV_DEVELOPMENT } = require('./config');
+const { ENV_DEVELOPMENT } = require('./helpers/config');
 const bundler = require('webpack');
 const Logger = require('./helpers/logger');
 const path = require('path');

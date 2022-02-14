@@ -1,4 +1,4 @@
-const { DIST_FOLDER } = require('./config');
+const { DIST_FOLDER } = require('./helpers/config');
 const { src, dest } = require('gulp');
 const autoprefixer = require('autoprefixer');
 const browserSync = require('./browser-sync');

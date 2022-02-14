@@ -1,4 +1,4 @@
-const { DIST_FOLDER } = require('./config');
+const { DIST_FOLDER } = require('./helpers/config');
 const { watch: watchGulp } = require('gulp');
 const browserSync = require('./browser-sync');
 const css = require('./css');
