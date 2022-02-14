@@ -1,4 +1,4 @@
-const { DIST_FOLDER } = require('./config');
+const { DIST_FOLDER } = require('./helpers/config');
 const { src, dest } = require('gulp');
 
 module.exports = function images(cb) {

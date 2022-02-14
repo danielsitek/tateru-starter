@@ -1,15 +1,15 @@
 {%- set versionID = "now"|date("mdYHms") -%}
 {%- set version_suffix = '?v=' ~ versionID -%}
 
-{% set isHomepage = false %}
-{% if page == 'index' %}
-    {% set isHomepage = true %}
-{% endif %}
+{%- set isHomepage = false -%}
+{%- if page == 'index' -%}
+    {%- set isHomepage = true -%}
+{%- endif -%}
 
-{% set domainHref = '' %}
-{% if not isHomepage %}
-    {% set domainHref = href[page][1:] %}
-{% endif %}
+{%- set domainHref = '' -%}
+{%- if not isHomepage -%}
+    {%- set domainHref = href[page][1:] -%}
+{%- endif -%}
 
 <!DOCTYPE html>
 <html class="no-js" lang="{{- lang -}}" itemscope itemtype="http://schema.org/WebPage">
@@ -138,13 +138,12 @@
     {%- if app.environment is defined and app.environment == 'prod' -%}
     {%- include "Main::include/google-tag-manager.html.twig" ignore missing -%}
     {%- endif -%}
-    <div id="app">
-        {%- block body -%}{%- endblock -%}
 
-        {%- block footer -%}
-        {%- include "Main::sections/section-footer.html.twig" ignore missing -%}
-        {%- endblock -%}
-    </div>
+    {%- block body -%}{%- endblock -%}
+
+    {%- block footer -%}
+    {%- include "Main::sections/section-footer.html.twig" ignore missing -%}
+    {%- endblock -%}
 
     {%- block javascripts -%}{%- endblock -%}
 </body>

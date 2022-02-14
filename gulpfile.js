@@ -4,7 +4,7 @@
  * @link https://github.com/gulpjs/gulp/tree/master/docs/recipes
  */
 
-const { ENV_DEVELOPMENT, ENV_PRODUCTION } = require('./tasks/config');
+const { ENV_DEVELOPMENT, ENV_PRODUCTION } = require('./tasks/helpers/config');
 const { parallel, series } = require('gulp');
 const clean = require('./tasks/clean');
 const css = require('./tasks/css');
