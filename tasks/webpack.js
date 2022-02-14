@@ -53,7 +53,7 @@ module.exports = function webpack (cb) {
   };
 
   if (process.env.NODE_ENV === ENV_DEVELOPMENT) {
-    settings.devtool = 'cheap-module-eval-source-map';
+    settings.devtool = 'eval-source-map';
   }
 
   const bundle = bundler(settings, function (error, stats) {
