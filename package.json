@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Tateru CLI Website Starter",
   "scripts": {
-    "lint": "eslint . --ext .js,.vue --fix",
+    "lint": "eslint . --ext .js --fix",
     "tateru": "tateru-cli config.json",
     "build": "gulp build",
     "build:prod": "gulp prod",
